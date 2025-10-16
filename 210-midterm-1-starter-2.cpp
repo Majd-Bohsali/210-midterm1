@@ -36,34 +36,40 @@ public:
     // value is the vlaue for the node element to insert, 
     // position is the index the value should be placed at with 0 being the start 
     void insert_after(int value, int position) {
+
+        // Makes sure the positon is 0 or greater, ensuring it is a valid position to insert at
         if (position < 0) {
-            cout << "Position must be >= 0." << endl;
-            return;
+            cout << "Position must be >= 0." << endl; // outputs to the user their mistake
+            return; // exits method
         }
 
-        Node* newNode = new Node(value);
-        if (!head) {
-            head = tail = newNode;
-            return;
+        Node* newNode = new Node(value); // defines newNode, is is the Node that will be inserted into the list
+        if (!head) { // checks if the doubly linked list is currently empty, will continue it is empty
+            head = tail = newNode; // sets the start (head) and end (tail) to point to the new node
+            return; // exits method
         }
+        // contiunes here if the doubly linked list is not empty
 
+        // creates a temporary node, this will iterate through each node untill the correct positon is found. starts at the front (head)
         Node* temp = head;
-        for (int i = 0; i < position && temp; ++i)
-            temp = temp->next;
+        for (int i = 0; i < position && temp; ++i) // will cycle until i is less than the target positon or untill the end is reached
+            temp = temp->next; // moves temp to the next element in the doubly linked list
 
-        if (!temp) {
-            cout << "Position exceeds list size. Node not inserted.\n";
-            delete newNode;
-            return;
+        if (!temp) { // checks if the temp points to a nullptr (meaning the end of the doubly linked list is reached)
+            cout << "Position exceeds list size. Node not inserted.\n"; // outputs to user that the target postion was out of bounds
+            delete newNode; // delets newNode to aboid memory leak
+            return; // exits method
         }
 
-        newNode->next = temp->next;
-        newNode->prev = temp;
-        if (temp->next)
-            temp->next->prev = newNode;
+        // reached only when the target positon was valid and temp points to the node right before the insert location
+        newNode->next = temp->next; // sets the newNode's next pointer to the node after the temp Node
+        newNode->prev = temp; // sets the newNode's prev pointr to the temp node
+        if (temp->next) // checks if the temp's node (or newNode's) next value pointed to an element or nullptr
+            temp->next->prev = newNode; // if it pointed to an element, that elements prev pointer is set to the newNode
         else
-            tail = newNode;
-        temp->next = newNode;
+            tail = newNode; // if temp pointed to nullptr, it means the element was inserted at the end
+                            // sets the tail of the doubly linked list to the newly inserted node
+        temp->next = newNode; 
     }
 
     void delete_val(int value) {
