@@ -7,7 +7,7 @@ const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 
 class DoublyLinkedList {
 private:
-    /* creates a struct objecte called Node. This will be used to store the data value for each node element
+    /* creates a struct object called Node. This will be used to store the data value for each node element
        the struct also has a prev and next pointer variables of type Node to hold the address for the node
         before the current node and the node after
     */ 
@@ -15,7 +15,7 @@ private:
         int data;
         Node* prev;
         Node* next;
-        // contructor sets the data, prev, and next fields
+        // constructor sets the data, prev, and next fields
         Node(int val, Node* p = nullptr, Node* n = nullptr) {
             data = val; 
             prev = p;
@@ -23,12 +23,18 @@ private:
         }
     };
 
-    Node* head;
-    Node* tail;
+    Node* head; // pointer variable to the Head node of the doubly linked list
+    Node* tail; // pointer variable to the Tail node of the doubly linked list
 
 public:
-    DoublyLinkedList() { head = nullptr; tail = nullptr; }
+    // default constructor for the DoublyLinkedList class, 
+    // sets head and tail to nullptr, meaning it does not point to any elements yet (doubly linked list is empty)
+    DoublyLinkedList() { head = nullptr; tail = nullptr; } 
 
+    // Defines insert_after(int value, int positon
+    // function does not return anything
+    // value is the vlaue for the node element to insert, 
+    // position is the index the value should be placed at with 0 being the start 
     void insert_after(int value, int position) {
         if (position < 0) {
             cout << "Position must be >= 0." << endl;
