@@ -7,10 +7,15 @@ const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 
 class DoublyLinkedList {
 private:
+    /* creates a struct objecte called Node. This will be used to store the data value for each node element
+       the struct also has a prev and next pointer variables of type Node to hold the address for the node
+        before the current node and the node after
+    */ 
     struct Node {
         int data;
         Node* prev;
         Node* next;
+        // contructor sets the data, prev, and next fields
         Node(int val, Node* p = nullptr, Node* n = nullptr) {
             data = val; 
             prev = p;
