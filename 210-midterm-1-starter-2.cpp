@@ -31,9 +31,9 @@ public:
     // sets head and tail to nullptr, meaning it does not point to any elements yet (doubly linked list is empty)
     DoublyLinkedList() { head = nullptr; tail = nullptr; } 
 
-    // Defines insert_after(int value, int positon
+    // Defines insert_after(int value, int positon)
     // function does not return anything
-    // value is the vlaue for the node element to insert, 
+    // value is the value for the node element to insert, 
     // position is the index the value should be placed at with 0 being the start 
     void insert_after(int value, int position) {
 
@@ -48,37 +48,41 @@ public:
             head = tail = newNode; // sets the start (head) and end (tail) to point to the new node
             return; // exits method
         }
-        // contiunes here if the doubly linked list is not empty
+        // continues here if the doubly linked list is not empty
 
-        // creates a temporary node, this will iterate through each node untill the correct positon is found. starts at the front (head)
-        Node* temp = head;
-        for (int i = 0; i < position && temp; ++i) // will cycle until i is less than the target positon or untill the end is reached
+        
+        Node* temp = head; // creates a temporary node, this will iterate through each node until the correct positon is found. starts at the front (head)
+        for (int i = 0; i < position && temp; ++i) // will cycle as long as i is less than the target positon or until the end is reached
             temp = temp->next; // moves temp to the next element in the doubly linked list
 
         if (!temp) { // checks if the temp points to a nullptr (meaning the end of the doubly linked list is reached)
             cout << "Position exceeds list size. Node not inserted.\n"; // outputs to user that the target postion was out of bounds
-            delete newNode; // delets newNode to aboid memory leak
+            delete newNode; // deletes newNode to avoid memory leak
             return; // exits method
         }
 
         // reached only when the target positon was valid and temp points to the node right before the insert location
         newNode->next = temp->next; // sets the newNode's next pointer to the node after the temp Node
-        newNode->prev = temp; // sets the newNode's prev pointr to the temp node
+        newNode->prev = temp; // sets the newNode's prev pointer to the temp node
         if (temp->next) // checks if the temp's node (or newNode's) next value pointed to an element or nullptr
             temp->next->prev = newNode; // if it pointed to an element, that elements prev pointer is set to the newNode
         else
             tail = newNode; // if temp pointed to nullptr, it means the element was inserted at the end
                             // sets the tail of the doubly linked list to the newly inserted node
-        temp->next = newNode; 
+        temp->next = newNode; // sets the temp's next pointer to the newly inserted node
     }
 
+    // Defines delete_val(int value
+    // function does not return anything
+    // value is the target value to remove
     void delete_val(int value) {
-        if (!head) return;
+        if (!head) return; // checks if the doublyLinkedList is currently empty
 
-        Node* temp = head;
+        Node* temp = head; // creates a temporary node, this will iterate through each node until the correct node to delete is found. starts at the front (head)
         
+        // continues untill the target delete value is found or has reached the end without finding the value
         while (temp && temp->data != value)
-            temp = temp->next;
+            temp = temp->next; // moves temp to the next element in the doubly linked list
 
         if (!temp) return; 
 
