@@ -77,11 +77,11 @@ public:
     // function does not return anything
     // value is the target value to remove
     void delete_val(int value) {
-        if (!head) return; // checks if the doublyLinkedList is currently empty
+        if (!head) return; // checks if the doubly linked list is currently empty
 
         Node* temp = head; // creates a temporary node, this will iterate through each node until the correct node to delete is found. starts at the front (head)
         
-        // continues untill the target delete value is found or has reached the end without finding the value
+        // continues until the target delete value is found or has reached the end without finding the value
         while (temp && temp->data != value)
             temp = temp->next; // moves temp to the next element in the doubly linked list
 
@@ -95,7 +95,7 @@ public:
             head = temp->next; // if the delete node is the head, the new value for the head is set to the node right after the delete node
 
         // checks if the node that is being deleted has a next value
-        // it is not the tail of the doubly linked list if true
+        // it is not at the tail of the doubly linked list if true
         if (temp->next)
             temp->next->prev = temp->prev; // sets the prev value for the node right after the delete node to the node right before the delete node
         else
@@ -150,6 +150,7 @@ public:
         delete temp; // deletes temp to prevent memory leak
     }
 
+    // inserts node with value v at the end of the doubly linked list
     void push_back(int v) {
         Node* newNode = new Node(v); // creates new node with element value v
         if (!tail) // checks if list is empty
@@ -161,6 +162,7 @@ public:
         }
     }
     
+    // inserts node with value v at the front of the doubly linked list
     void push_front(int v) {
         Node* newNode = new Node(v); // creates new node with element value v
         if (!head) // checks if list is empty
@@ -172,6 +174,7 @@ public:
         }
     }
     
+    // removes the node at the front of the doubly linked list
     void pop_front() {
         if (!head) { // checks if list is empty
             cout << "List is empty." << endl; // tells the user the error if it is empty
@@ -189,6 +192,7 @@ public:
         delete temp; // deletes the node to prevent memory leak
     }
 
+    // removes the noed at the end of the doubly linked list
     void pop_back() {
         if (!tail) { // checks if list is empty
             cout << "List is empty." << endl; // prints the error if it is empty
@@ -247,6 +251,7 @@ public:
         cout << endl; // creates new line in console
     }
 
+    // prints every other element of the doubly linked list
     void every_other_element() { 
         Node* current = head; // starst with setting the iterator pointer to the head of the linked list
         if (!current) { // check if the list is empty 
@@ -258,7 +263,7 @@ public:
         while (current) {
             cout << current->data << " "; // prints the nodes data and adds space
             current = current->next; // goes up one node
-            
+
             // makes sure node is not nullptr before continuing up one more to skip
             if (current) {
                 current = current->next; // goes up one node
@@ -271,6 +276,6 @@ public:
 int main() {
     cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning
 
-    
     return 0;
+    
 }
