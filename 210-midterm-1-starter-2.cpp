@@ -119,7 +119,7 @@ public:
             return; // exits the method
         }
     
-        Node* temp = head; // creates a temporary node to iterate untill the correct node is found
+        Node* temp = head; // creates a temporary node to iterate until the correct node is found
     
         // iterates until temp points to one node before the target node
         for (int i = 1; i < pos; i++){
@@ -191,7 +191,7 @@ public:
 
     void pop_back() {
         if (!tail) { // checks if list is empty
-            cout << "List is empty." << endl; // tells the user the error if it is empty 
+            cout << "List is empty." << endl; // prints the error if it is empty
             return; // exits method
         }
         Node * temp = tail; // sets a temp node to iterate, starts at the tail
@@ -217,32 +217,49 @@ public:
     
     // prints all elements in order
     void print() {
-        Node* current = head; // starst with setting the iterator node to the head of the linked list
+        Node* current = head; // starst with setting the iterator pointer to the head of the linked list
         if (!current) { // check if the list is empty 
-            cout << "List is empty." << endl; // tells the user the error if it is empty
+            cout << "List is empty." << endl; // prints the error if it is empty
             return; // exits method
         }
 
-        // iteraates untill the end is reached 
+        // iterates untill the end is reached 
         while (current) {
-            cout << current->data << " ";
-            current = current->next;
+            cout << current->data << " "; // prints the nodes data and adds space
+            current = current->next; // continues to the next node
         }
-        cout << endl;
+        cout << endl; // creates new line in console
     }
 
     // prints all elements in reverse order
     void print_reverse() {
-        Node* current = tail;
-        if (!current) { 
-            cout << "List is empty." << endl;
-            return;
+        Node* current = tail; // starst with setting the iterator pointer to the tail of the linked list
+        if (!current) { // check if the list is empty 
+            cout << "List is empty." << endl; // prints the error if it is empty
+            return; // exits method
         }
+        
+        // iterates untill the end is reached 
         while (current) {
-            cout << current->data << " ";
-            current = current->prev;
+            cout << current->data << " "; // prints the nodes data and adds space
+            current = current->prev; // continues to the previous node
         }
-        cout << endl;
+        cout << endl; // creates new line in console
+    }
+
+    void every_other_element() { 
+        Node* current = head; // starst with setting the iterator pointer to the head of the linked list
+        if (!current) { // check if the list is empty 
+            cout << "List is empty." << endl; // prints the error if it is empty
+            return; // exits method
+        }
+
+        // iterates untill the end is reached 
+        while (current) {
+            cout << current->data << " "; // prints the nodes data and adds space
+            current = current->next; // continues to the next node
+        }
+        cout << endl; // creates new line in console
     }
 };
 
