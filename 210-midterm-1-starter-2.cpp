@@ -32,6 +32,7 @@ public:
     DoublyLinkedList() { head = nullptr; tail = nullptr; } 
 
     // Defines insert_after(int value, int positon)
+    // inserts new node right after the node in the position passed as an argument
     // function does not return anything
     // value is the value for the node element to insert, 
     // position is the index the value should be placed at with 0 being the start 
@@ -84,56 +85,69 @@ public:
         while (temp && temp->data != value)
             temp = temp->next; // moves temp to the next element in the doubly linked list
 
-        if (!temp) return; 
+        if (!temp) return; // exits method if the end of the doubly linked list was reached without finding the delete value
 
-        if (temp->prev)
-            temp->prev->next = temp->next;
+        // checks if the node that is being deleted has a previous value
+        // it is not the head of the doubly linked list if true
+        if (temp->prev) 
+            temp->prev->next = temp->next; // sets the next value for the node right before the delete node to the node right after the delete node
         else
-            head = temp->next; 
+            head = temp->next; // if the delete node is the head, the new value for the head is set to the node right after the delete node
 
+        // checks if the node that is being deleted has a next value
+        // it is not the tail of the doubly linked list if true
         if (temp->next)
-            temp->next->prev = temp->prev;
+            temp->next->prev = temp->prev; // sets the prev value for the node right after the delete node to the node right before the delete node
         else
-            tail = temp->prev; 
+            tail = temp->prev; // if the delete node is the tail, the new value for the tail is set to the node right before the delete node
 
-        delete temp;
+        delete temp; // deletes the temp Node, removing it from memory preventing any memory leaks
     }
 
+    // Defines delete)pos(int pos)
+    // deletes the node at the position pos, the position for the first element is 1 
     void delete_pos(int pos) {
-        if (!head) {
-            cout << "List is empty." << endl;
-            return;
+        // checks if the list is empty
+        if (!head) { 
+            cout << "List is empty." << endl; // returns the problem to the user
+            return; // exits the method
         }
-    
+        
+        // checks if the pos is 1, meaning it is the front of the list
         if (pos == 1) {
-            pop_front();
-            return;
+            pop_front(); // if the first element is being deleted it calls pop_front()
+            return; // exits the method
         }
     
-        Node* temp = head;
+        Node* temp = head; // creates a temporary node to iterate untill the correct node is found
     
+        // iterates until temp points to one node before the target node
         for (int i = 1; i < pos; i++){
+            // checks if it reached the end of the doubly linked list before finding the positon 
             if (!temp) {
-                cout << "Position doesn't exist." << endl;
-                return;
+                cout << "Position doesn't exist." << endl; 
+                return; // exits method
             }
-            else
-                temp = temp->next;
+            else // contiues if it did not reach the end
+                temp = temp->next; // steps one to the next node, temp points to the node at position pos
         }
+
+        // checks if it reached the end of the doubly linked list before finding the positon 
         if (!temp) {
-            cout << "Position doesn't exist." << endl;
-            return;
+            cout << "Position doesn't exist." << endl; // returns the error to the user
+            return; // exits method
         }
-    
+        
+        // checks if the node points to the end
         if (!temp->next) {
-            pop_back();
-            return;
+            pop_back(); // uses pop_back if the delete node is the tail
+            return; // exits method
         }
-    
-        Node* tempPrev = temp->prev;
-        tempPrev->next = temp->next;
-        temp->next->prev = tempPrev;
-        delete temp;
+        
+        Node* tempPrev = temp->prev; // saves the pointer to the Node before temp
+        tempPrev->next = temp->next; // sets the next pointer of the node before temp to the node after temp 
+        temp->next->prev = tempPrev; // sets the prev pointer of the node after temp to the node before temp
+        delete temp; // deletes temp to prevent memory leak
     }
 
     void push_back(int v) {
@@ -192,11 +206,13 @@ public:
         delete temp;
     }
 
+    // Destructor method for the DoublyLinkedList class
     ~DoublyLinkedList() {
+        // goes through each value and deletes it to prevent memory leaks
         while (head) {
-            Node* temp = head;
-            head = head->next;
-            delete temp;
+            Node* temp = head; // sets the temp node front of the doubly linked list
+            head = head->next; // moves the head node down one
+            delete temp; // deletes the current node (the head) 
         }
     }
     void print() {
