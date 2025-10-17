@@ -257,7 +257,12 @@ public:
         // iterates untill the end is reached 
         while (current) {
             cout << current->data << " "; // prints the nodes data and adds space
-            current = current->next; // continues to the next node
+            current = current->next; // goes up one node
+            
+            // makes sure node is not nullptr before continuing up one more to skip
+            if (current) {
+                current = current->next; // goes up one node
+            }
         }
         cout << endl; // creates new line in console
     }
