@@ -151,59 +151,58 @@ public:
     }
 
     void push_back(int v) {
-        Node* newNode = new Node(v);
-        if (!tail)
-            head = tail = newNode;
-        else {
-            tail->next = newNode;
-            newNode->prev = tail;
-            tail = newNode;
+        Node* newNode = new Node(v); // creates new node with element value v
+        if (!tail) // checks if list is empty
+            head = tail = newNode; // if empty sets the head and tail to the new node
+        else { // contunes if not empty 
+            tail->next = newNode; // sets the current tail node next pointer to the new node 
+            newNode->prev = tail;  // sets the new nodes prev pointer to the current tail
+            tail = newNode; // sets the tail of the list to the new node
         }
     }
     
     void push_front(int v) {
-        Node* newNode = new Node(v);
-        if (!head)
-            head = tail = newNode;
-        else {
-            newNode->next = head;
-            head->prev = newNode;
-            head = newNode;
+        Node* newNode = new Node(v); // creates new node with element value v
+        if (!head) // checks if list is empty
+            head = tail = newNode; // if empty sets the head and tail to the new node
+        else { // contunes if not empty 
+            newNode->next = head; // sets the new nodes next pointer to the current head
+            head->prev = newNode; // sets the current heads node previous pointer to the new node 
+            head = newNode; // sets the head of the list to the new node
         }
     }
     
     void pop_front() {
-
-        if (!head) {
-            cout << "List is empty." << endl;
-            return;
+        if (!head) { // checks if list is empty
+            cout << "List is empty." << endl; // tells the user the error if it is empty
+            return; // exits method
         }
 
-        Node * temp = head;
+        Node * temp = head; // sets a temp node to iterate, starts at the head
 
-        if (head->next) {
-            head = head->next;
-            head->prev = nullptr;
+        if (head->next) { // checks if the list is more than one node long
+            head = head->next; // moves the lists head pointer up one
+            head->prev = nullptr; // sets the new head's prev pointer to nullptr since it is going to be the new head
         }
         else
-            head = tail = nullptr;
-        delete temp;
+            head = tail = nullptr; // sets head and tail to nullptr since the list is now empty 
+        delete temp; // deletes the node to prevent memory leak
     }
 
     void pop_back() {
-        if (!tail) {
-            cout << "List is empty." << endl;
-            return;
+        if (!tail) { // checks if list is empty
+            cout << "List is empty." << endl; // tells the user the error if it is empty 
+            return; // exits method
         }
-        Node * temp = tail;
+        Node * temp = tail; // sets a temp node to iterate, starts at the tail
 
-        if (tail->prev) {
-            tail = tail->prev;
-            tail->next = nullptr;
+        if (tail->prev) {  // checks if the list is more than one node long
+            tail = tail->prev; // moves the lists tail pointer down one
+            tail->next = nullptr; // sets the new tails's next pointer to nullptr since it is going to be the new tail
         }
         else
-            head = tail = nullptr;
-        delete temp;
+            head = tail = nullptr;  // sets head and tail to nullptr since the list is now empty 
+        delete temp; // deletes the node to prevent memory leak
     }
 
     // Destructor method for the DoublyLinkedList class
@@ -215,12 +214,16 @@ public:
             delete temp; // deletes the current node (the head) 
         }
     }
+    
+    // prints all elements in order
     void print() {
-        Node* current = head;
-        if (!current) {
-            cout << "List is empty." << endl;
-            return;
+        Node* current = head; // starst with setting the iterator node to the head of the linked list
+        if (!current) { // check if the list is empty 
+            cout << "List is empty." << endl; // tells the user the error if it is empty
+            return; // exits method
         }
+
+        // iteraates untill the end is reached 
         while (current) {
             cout << current->data << " ";
             current = current->next;
@@ -228,6 +231,7 @@ public:
         cout << endl;
     }
 
+    // prints all elements in reverse order
     void print_reverse() {
         Node* current = tail;
         if (!current) { 
